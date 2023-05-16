@@ -33,8 +33,14 @@ window.setup = =>
 	global.board1 = new Board 1
 	global.chess = new Chess()
 
+	input = createInput "0123456789"
+	input.id "myInput"
+	input.position 0,0
+	input.size 100
+	console.log input.value
+
 	button = createButton 'copy'
-	button.position 0, 0
+	button.position 200, 0
 	button.mousePressed () =>
 		input = document.getElementById "myInput"
 		input.select()
