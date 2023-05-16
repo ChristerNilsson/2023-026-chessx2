@@ -7,7 +7,10 @@ import {global} from '../js/globals.js'
 released = true # prevention of touch bounce
 arr = null
 
-window.fetcher = => navigator.clipboard.writeText global.chess.pgn()
+window.fetcher = =>
+	s = global.chess.pgn()
+	alert s
+	navigator.clipboard.writeText s
 
 window.preload = =>
 	for letter in "rnbqkp"
