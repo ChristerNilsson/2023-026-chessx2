@@ -7,11 +7,6 @@ import {global} from '../js/globals.js'
 released = true # prevention of touch bounce
 arr = null
 
-window.fetcher = =>
-	s = global.chess.pgn()
-	alert s
-	navigator.clipboard.writeText s
-
 window.preload = =>
 	for letter in "rnbqkp"
 		global.pics[letter] = loadImage './images/b' + letter + '.png'
@@ -19,6 +14,18 @@ window.preload = =>
 		global.pics[letter] = loadImage './images/w' + letter.toLowerCase() + '.png'
 
 fullScreen = => enterFullscreen()
+
+window.fetcher = =>
+	s = "yxan" #global.chess.pgn()
+	alert s
+	navigator.clipboard.writeText s
+
+window.kopiera = =>
+	copyText = document.querySelector "#myInput"
+	copyText.select()
+	document.execCommand "copy"
+
+# document.querySelector("#copy").addEventListener("click", copy);	
 
 window.setup = =>
 
