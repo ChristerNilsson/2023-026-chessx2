@@ -22,19 +22,19 @@ export class Square
 		[x,y] = [@x,@y]
 		[x,y] = [x+0.5,y+0.5]
 		noStroke()
-		rect global.SIZE*(x), global.SIZE*(y),global.SIZE,global.SIZE
+		rect global.SIZE*x, global.SIZE*y,global.SIZE,global.SIZE
 		if not piece then return
 		key = piece.type.toLowerCase()
 		if piece.color == 'w' then key = key.toUpperCase()
 
 		if @nr==0
 			push()
-			translate global.SIZE*x,global.SIZE*y
+			translate global.SIZE*x, global.SIZE*y
 			scale -1,-1
 			image pics[key],0, 0,global.SIZE,global.SIZE
 			pop()
 		else
-			image pics[key],global.SIZE*x, global.SIZE*y,global.SIZE,global.SIZE
+			image pics[key], global.SIZE*x, global.SIZE*y,global.SIZE,global.SIZE
 
 	inside : (mx,my) =>
 		param.Number mx

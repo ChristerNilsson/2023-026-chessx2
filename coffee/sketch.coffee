@@ -14,13 +14,22 @@ window.preload = =>
 	for letter in "RNBQKP"
 		global.pics[letter] = loadImage './images/w' + letter.toLowerCase() + '.png'
 
+fullScreen = =>
+	global.buttons = []
+	enterFullscreen()
+
 window.setup = =>
 
+	createCanvas innerWidth,innerHeight
+
 	global.SIZE = min innerWidth,innerHeight
-	global.SIZE = innerHeight/18
+	global.SIZE = round innerHeight/18
 	console.log global.SIZE
 
-	createCanvas innerWidth,innerHeight
+	resize()
+
+	global.buttons.push new Button width/2, height/2, 'Full Screen', fullScreen
+
 	textAlign CENTER,CENTER
 	rectMode CENTER
 	imageMode CENTER
@@ -29,47 +38,38 @@ window.setup = =>
 	global.board2 = new Board 1
 	global.chess = new Chess()
 
-	xdraw()
-
-xdraw = =>
+window.draw = =>
 	background 'gray'
 	textSize SIZE
 	global.board.draw()
 	global.board2.draw()
-	# for button in global.buttons
-	# 	button.draw()
+	for button in global.buttons
+		button.draw()
 	fill "black"
 	textAlign CENTER,CENTER
 
-#window.onresize = -> resize()
+window.onresize = -> resize()
 
-# resize = ->
-# 	console.log 'resize'
-# 	global.SIZE = min(innerWidth,innerWidth*0.75)
-# 	# W = H
-# 	global.SIZE = global.SIZE/15
-# 	#mx = (innerWidth - 8*S)/2
-# 	#my = S/2
-# 	resizeCanvas innerWidth, innerHeight
-# 	#xdraw()
+resize = ->
+	global.SIZE = round innerHeight/18
+	console.log 'resize',global.SIZE
+	resizeCanvas innerWidth, innerHeight
+	global.mx = (innerWidth - 8 * global.SIZE)/2
+	global.my = (innerHeight - 17 * global.SIZE)/2
 
 window.mousePressed = =>
 	help = ''
 	if not released then return
 	released = false
 
-	for button in global.buttons.concat global.board.buttons
+	for button in global.buttons.concat global.buttons
 		if button.inside mouseX,mouseY
 			button.onclick()
-			xdraw()
 			return false
 	for square in global.board.squares
 		if square.inside mouseX,mouseY
 			square.onclick()
-			xdraw()
 			return false
-
-	enterFullscreen()
 	false
 
 window.mouseReleased = =>

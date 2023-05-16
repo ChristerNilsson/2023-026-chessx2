@@ -1,5 +1,5 @@
 import _ from 'https://cdn.skypack.dev/lodash'
-import {ass,lerp,param,range,hexToBase64} from '../js/utils.js'
+import {ass,lerp,param,range,hexToBase64,enterFullscreen} from '../js/utils.js'
 import {Square} from '../js/square.js'
 import {Button} from '../js/button.js'
 import {coords,clickString,global,toObjectNotation,toUCI} from '../js/globals.js'
@@ -33,11 +33,10 @@ export class Board
 			do (i) => @squares.push new Square @nr, i, => @click i
 
 		@buttons = []
-		#@buttons.push new Button x0*SIZE, 9.5*SIZE, 'correct', => clickString 'correct'
 
 	click : (i) =>
 		g = global
-		sr = g.spacedRepetition
+		# sr = g.spacedRepetition
 		if @flipped then i = 63-i
 		col = i %% 8
 		row = 7-i // 8
@@ -52,21 +51,21 @@ export class Board
 			else # kontrollera draget
 				@clickedSquares.push i
 				uci = toUCI @clickedSquares
-				if uci in sr.answers
-					sr.correct()
-					getNextQuestion()
-					@clickedSquares = []
+				# if uci in sr.answers
+					# sr.correct()
+					# getNextQuestion()
+					# @clickedSquares = []
 		else if csl == 2
 			@clickedSquares.push i
 		else if csl == 3
 			@clickedSquares.push i
 			uci = toUCI @clickedSquares.slice 2,4
-			if uci in sr.answers
-				sr.wrong()
-				getNextQuestion()
-				@clickedSquares = []
-			else
-				@clickedSquares = @clickedSquares.slice 0,2
+			# if uci in sr.answers
+				# sr.wrong()
+				# getNextQuestion()
+				# @clickedSquares = []
+			# else
+			# 	@clickedSquares = @clickedSquares.slice 0,2
 
 	draw : =>
 
@@ -78,10 +77,10 @@ export class Board
 
 		if @nr==0
 			push()
-			translate global.SIZE*2.75, global.SIZE*0.5
+			translate global.mx, global.my
 		else 
 			push()
-			translate global.SIZE*2.75, global.SIZE*9.5
+			translate global.mx, global.my + 9 * global.SIZE
 
 		for i in range 8
 			for j in range 8
