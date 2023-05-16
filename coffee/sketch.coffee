@@ -7,6 +7,8 @@ import {global} from '../js/globals.js'
 released = true # prevention of touch bounce
 arr = null
 
+window.fetcher = => navigator.clipboard.writeText global.chess.pgn()
+
 window.preload = =>
 	for letter in "rnbqkp"
 		global.pics[letter] = loadImage './images/b' + letter + '.png'
@@ -33,10 +35,10 @@ window.setup = =>
 	global.board1 = new Board 1
 	global.chess = new Chess()
 
-	button = document.getElementById "myButton"
-	button.onclick = () =>
-		s = "Hula Jönsson"
-		navigator.clipboard.writeText s
+	# button = document.getElementById "myButton"
+	# button.onclick = () =>
+	# 	s = "Hula Jönsson"
+	# 	navigator.clipboard.writeText s
 
 		# input = document.getElementById "myInput"
 		# input.focus()
@@ -86,3 +88,4 @@ window.mousePressed = =>
 window.mouseReleased = =>
 	released = true
 	false
+
