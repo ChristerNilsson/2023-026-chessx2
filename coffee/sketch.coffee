@@ -1,5 +1,5 @@
 import _ from 'https://cdn.skypack.dev/lodash'
-import {ass,log,range} from '../js/utils.js'
+import {ass,log,range,enterFullscreen} from '../js/utils.js'
 import {Board} from '../js/board.js'
 import {Button} from '../js/button.js'
 import {clickString,global} from '../js/globals.js'
@@ -56,7 +56,8 @@ xdraw = =>
 window.mousePressed = =>
 	help = ''
 	if not released then return
-	released =false
+	released = false
+
 	for button in global.buttons.concat global.board.buttons
 		if button.inside mouseX,mouseY
 			button.onclick()
@@ -67,6 +68,8 @@ window.mousePressed = =>
 			square.onclick()
 			xdraw()
 			return false
+
+	enterFullscreen()
 	false
 
 window.mouseReleased = =>
