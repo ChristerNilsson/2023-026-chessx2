@@ -31,7 +31,7 @@ copyToClipboard = (string) =>
 		textarea.setSelectionRange 0, textarea.value.length
 		result = document.execCommand 'copy'
 	catch err
-		console.error err
+		alert err
 		result = null
 	finally
 		document.body.removeChild textarea
