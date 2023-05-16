@@ -4,8 +4,8 @@ import {param,range} from '../js/utils.js'
 export class Button
 	constructor: (@x,@y,@text,@onclick) ->
 		param.Compact "NNSF",arguments
-		@w = 1.7 * global.SIZE
-		@h = 0.7 * global.SIZE
+		@w = 2.2 * global.SIZE
+		@h = 1 * global.SIZE
 		@bg = 'lightgray'
 		@fg = 'black'
 		@align = CENTER

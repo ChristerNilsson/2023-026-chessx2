@@ -1,26 +1,21 @@
 import {global} from '../js/globals.js'
 import {param} from '../js/utils.js'
 
-#SIZE = global.SIZE
 pics = global.pics
 width = global.width
 
 export class Square
-	constructor: (@nr,@i,@onclick) ->
-		param.Integer @i
-		@x = @i%8
-		@y = 7 - @i//8
+	constructor: (@nr,@i,@x,@y,@onclick) ->
+		@ix = @i %% 8
+		@iy = 7 - @i//8
 		@w = global.SIZE
 		@h = global.SIZE
 		@col = 'white'
 
-	draw : (piece,flipped,selected) =>
-		#param.Test piece==null or piece.type in 'rnbqkp' and piece.color in 'bw'
-		#param.Boolean flipped
-		if (@x+@y) % 2 == 1 then fill 'gray' else fill 'lightgray'
+	draw : (piece,selected) =>
+		if (@ix+@iy) % 2 == 1 then fill 'gray' else fill 'lightgray'
 		if selected then fill 'green'
-		[x,y] = [@x,@y]
-		[x,y] = [x+0.5,y+0.5]
+		[x,y] = [@ix+0.5, @iy+0.5]
 		noStroke()
 		rect global.SIZE*x, global.SIZE*y,global.SIZE,global.SIZE
 		if not piece then return
@@ -37,9 +32,5 @@ export class Square
 			image pics[key], global.SIZE*x, global.SIZE*y,global.SIZE,global.SIZE
 
 	inside : (mx,my) =>
-		param.Number mx
-		param.Number my
-		x = (@x+1)*global.SIZE
-		y = (@y+1)*global.SIZE
-		res = x-@w/2 < mx < x+@w/2 and y-@h/2 < my < y+@h/2
-		param.Boolean res
+		res =   @x-@w/2 < mx-global.SIZE/2 < @x+@w/2
+		res and @y-@h/2 < my-global.SIZE/2 < @y+@h/2

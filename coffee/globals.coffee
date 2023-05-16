@@ -81,9 +81,9 @@ link = => 'https://lichess.org/analysis/' + global.chess.fen()
 
 export clickString = (key) =>
 	param.String key
-	g = global
-	if key == 'flip' then g.board.flip()
-	else if key == 'link' then window.open link(), '_blank'
+	#g = global
+	#if key == 'flip' then g.board.flip()
+	if key == 'link' then window.open link(), '_blank'
 	# else if key == 'up'   then g.child = (g.child-1) %% g.children.length
 	# else if key == 'down' then g.child = (g.child+1) %% g.children.length
 	else if key == 'undo' then undo()

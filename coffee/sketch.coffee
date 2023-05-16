@@ -15,7 +15,7 @@ window.preload = =>
 		global.pics[letter] = loadImage './images/w' + letter.toLowerCase() + '.png'
 
 fullScreen = =>
-	global.buttons = []
+	#global.buttons = []
 	enterFullscreen()
 
 window.setup = =>
@@ -24,11 +24,8 @@ window.setup = =>
 
 	global.SIZE = min innerWidth,innerHeight
 	global.SIZE = round innerHeight/18
-	console.log global.SIZE
 
 	resize()
-
-	global.buttons.push new Button width/2, height/2, 'Full Screen', fullScreen
 
 	textAlign CENTER,CENTER
 	rectMode CENTER
@@ -52,13 +49,14 @@ window.onresize = -> resize()
 
 resize = ->
 	global.SIZE = round innerHeight/18
-	console.log 'resize',global.SIZE
 	resizeCanvas innerWidth, innerHeight
 	global.mx = (innerWidth - 8 * global.SIZE)/2
 	global.my = (innerHeight - 17 * global.SIZE)/2
+	global.buttons = []
+	global.buttons.push new Button width/2,height/2, 'Full Screen', fullScreen
 
 window.mousePressed = =>
-	help = ''
+	console.log 'mousePressed'
 	if not released then return
 	released = false
 
@@ -66,8 +64,9 @@ window.mousePressed = =>
 		if button.inside mouseX,mouseY
 			button.onclick()
 			return false
-	for square in global.board.squares
+	for square in global.board.squares.concat global.board2.squares
 		if square.inside mouseX,mouseY
+			console.log 'square.inside',square.nr
 			square.onclick()
 			return false
 	false
