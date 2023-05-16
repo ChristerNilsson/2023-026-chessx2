@@ -5,11 +5,17 @@ pics = global.pics
 width = global.width
 
 export class Square
-	constructor: (@nr,@i,@x,@y,@onclick) ->
+	constructor: (@nr,@i,@onclick) ->
 		@ix = @i %% 8
 		@iy = 7 - @i//8
-		@w = global.SIZE
-		@h = global.SIZE
+
+		# ix = i %% 8
+		# iy = 7 - i // 8
+		# x = global.mx() + global.size() * ix
+		# y = global.my() + global.size() * iy + @nr * global.size() * 9
+
+		@w = global.size()
+		@h = global.size()
 		@col = 'white'
 
 	draw : (piece,selected) =>
@@ -17,20 +23,24 @@ export class Square
 		if selected then fill 'green'
 		[x,y] = [@ix+0.5, @iy+0.5]
 		noStroke()
-		rect global.SIZE*x, global.SIZE*y,global.SIZE,global.SIZE
+		rect global.size()*x, global.size()*y,global.size(),global.size()
 		if not piece then return
 		key = piece.type.toLowerCase()
 		if piece.color == 'w' then key = key.toUpperCase()
 
 		if @nr==0
 			push()
-			translate global.SIZE*x, global.SIZE*y
+			translate global.size()*x, global.size()*y
 			scale -1,-1
-			image pics[key],0, 0,global.SIZE,global.SIZE
+			image pics[key], 0,0, global.size(),global.size()
 			pop()
 		else
-			image pics[key], global.SIZE*x, global.SIZE*y,global.SIZE,global.SIZE
+			image pics[key], global.size()*x, global.size()*y,global.size(),global.size()
 
 	inside : (mx,my) =>
-		res =   @x-@w/2 < mx-global.SIZE/2 < @x+@w/2
-		res and @y-@h/2 < my-global.SIZE/2 < @y+@h/2
+		@x = global.mx() + global.size() * @ix
+		@y = global.my() + global.size() * @iy + @nr * global.size() * 9
+		@w = global.size()
+		@h = global.size()
+		res =   @x-@w/2 < mx-global.size()/2 < @x+@w/2
+		res and @y-@h/2 < my-global.size()/2 < @y+@h/2

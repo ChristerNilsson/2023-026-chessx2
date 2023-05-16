@@ -2,7 +2,7 @@ import _ from 'https://cdn.skypack.dev/lodash'
 import {ass,lerp,param,range,hexToBase64,enterFullscreen} from '../js/utils.js'
 import {Square} from '../js/square.js'
 import {Button} from '../js/button.js'
-import {coords,clickString,global,toObjectNotation,toUCI} from '../js/globals.js'
+import {coords,global,toObjectNotation,toUCI} from '../js/globals.js'
 import {dumpState} from '../js/globals.js'
 
 export class Board
@@ -11,11 +11,7 @@ export class Board
 		@clickedSquares = []
 		@pieces = ""
 		for i in range 64
-			ix = i %% 8
-			iy = 7 - i // 8
-			x = global.mx + global.SIZE * ix
-			y = global.my + global.SIZE * iy + @nr * global.SIZE* 9
-			do (i,x,y) => @squares.push new Square @nr, i, x, y, => @click i
+			do (i) => @squares.push new Square @nr, i, => @click i
 
 		@buttons = []
 
@@ -48,11 +44,11 @@ export class Board
 			button.draw()
 
 		fill 'white'
-		textSize global.SIZE*0.3
+		textSize global.size() * 0.3
 
 		push()
-		if @nr==0 then translate global.mx, global.my
-		else translate global.mx, global.my + 9 * global.SIZE
+		if @nr==0 then translate global.mx(), global.my()
+		else translate global.mx(), global.my() + 9 * global.size()
 
 		for i in range 8
 			for j in range 8
@@ -67,17 +63,19 @@ export class Board
 
 		stroke 'black'
 		if @nr==0 then fill 128,128,128,64 else noFill()
-		rect global.SIZE*4,global.SIZE*4,global.SIZE*8,global.SIZE*8
+		SIZE = global.size()
+		rect SIZE*4,SIZE*4,SIZE*8,SIZE*8
 		pop()
 		#@littera()
 
 	littera : =>
+		SIZE = global.size()
 		noStroke()
 		fill 'black'
-		textSize global.SIZE*0.3
+		textSize SIZE*0.3
 		letters = if false then "hgfedcba" else "abcdefgh"
 		digits  = if false then "12345678" else "87654321"
 
 		for i in range 8
-			text letters[i],global.SIZE*(i+1),global.SIZE*8.8
-			text digits[i],global.SIZE*0.15,global.SIZE*(i+1)
+			text letters[i],SIZE*(i+1),SIZE*8.8
+			text digits[i],SIZE*0.15,SIZE*(i+1)

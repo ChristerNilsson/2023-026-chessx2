@@ -4,8 +4,8 @@ import {param,range} from '../js/utils.js'
 export class Button
 	constructor: (@x,@y,@text,@onclick) ->
 		param.Compact "NNSF",arguments
-		@w = 2.2 * global.SIZE
-		@h = 1 * global.SIZE
+		@w = 2.2 * global.size()
+		@h = 1 * global.size()
 		@bg = 'lightgray'
 		@fg = 'black'
 		@align = CENTER
@@ -18,10 +18,10 @@ export class Button
 		if @align==LEFT then x=@x-0.45*@w else x=@x
 		fill @fg
 		push()
-		textSize 0.4*global.SIZE
+		textSize 0.4*global.size()
 		textAlign @align
 		noStroke()
-		text @text, x,@y+0.05*global.SIZE
+		text @text, x,@y+0.05*global.size()
 		pop()
 
 	inside : (x,y) =>

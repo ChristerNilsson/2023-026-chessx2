@@ -1,10 +1,9 @@
 import _ from 'https://cdn.skypack.dev/lodash'
-import {ass,log,range,enterFullscreen} from '../js/utils.js'
+import {ass,log,range,enterFullscreen,signal} from '../js/utils.js'
 import {Board} from '../js/board.js'
 import {Button} from '../js/button.js'
-import {clickString,global} from '../js/globals.js'
+import {global} from '../js/globals.js'
 
-SIZE = global.SIZE
 released = true # prevention of touch bounce
 arr = null
 
@@ -14,16 +13,21 @@ window.preload = =>
 	for letter in "RNBQKP"
 		global.pics[letter] = loadImage './images/w' + letter.toLowerCase() + '.png'
 
-fullScreen = =>
-	#global.buttons = []
-	enterFullscreen()
+fullScreen = => enterFullscreen()
 
 window.setup = =>
 
 	createCanvas innerWidth,innerHeight
 
-	global.SIZE = min innerWidth,innerHeight
-	global.SIZE = round innerHeight/18
+	[global.size, global.setSize] = signal round min(innerWidth,innerHeight)/18
+	#global.size = size
+	#global.setSize = setSize
+	[global.mx, global.setMx] = signal round (innerWidth - 8 * global.size())/2
+	#global.mx = mx
+	#global.setMx = setMx
+	[global.my, global.setMy] = signal round (innerHeight - 17 * global.size())/2
+	#global.my = my
+	#global.setMy = setMy
 
 	resize()
 
@@ -31,15 +35,15 @@ window.setup = =>
 	rectMode CENTER
 	imageMode CENTER
 
-	global.board = new Board 0
-	global.board2 = new Board 1
+	global.board0 = new Board 0
+	global.board1 = new Board 1
 	global.chess = new Chess()
 
 window.draw = =>
 	background 'gray'
-	textSize SIZE
-	global.board.draw()
-	global.board2.draw()
+	textSize global.size()
+	global.board0.draw()
+	global.board1.draw()
 	for button in global.buttons
 		button.draw()
 	fill "black"
@@ -48,10 +52,11 @@ window.draw = =>
 window.onresize = -> resize()
 
 resize = ->
-	global.SIZE = round innerHeight/18
+	global.setSize round innerHeight/18
 	resizeCanvas innerWidth, innerHeight
-	global.mx = round (innerWidth - 8 * global.SIZE)/2
-	global.my = round (innerHeight - 17 * global.SIZE)/2
+	global.setMx round (innerWidth - 8 * global.size())/2
+	console.log 'size',global.size()
+	global.setMy round (innerHeight - 17 * global.size())/2
 	global.buttons = []
 	global.buttons.push new Button round(width/2),round(height/2), 'Full Screen', fullScreen
 
@@ -64,7 +69,7 @@ window.mousePressed = =>
 		if button.inside mouseX,mouseY
 			button.onclick()
 			return false
-	for square in global.board.squares.concat global.board2.squares
+	for square in global.board0.squares.concat global.board1.squares
 		if square.inside mouseX,mouseY
 			console.log 'square.inside',square.nr
 			square.onclick()
