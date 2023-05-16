@@ -50,10 +50,10 @@ window.onresize = -> resize()
 resize = ->
 	global.SIZE = round innerHeight/18
 	resizeCanvas innerWidth, innerHeight
-	global.mx = (innerWidth - 8 * global.SIZE)/2
-	global.my = (innerHeight - 17 * global.SIZE)/2
+	global.mx = round (innerWidth - 8 * global.SIZE)/2
+	global.my = round (innerHeight - 17 * global.SIZE)/2
 	global.buttons = []
-	global.buttons.push new Button width/2,height/2, 'Full Screen', fullScreen
+	global.buttons.push new Button round(width/2),round(height/2), 'Full Screen', fullScreen
 
 window.mousePressed = =>
 	console.log 'mousePressed'
