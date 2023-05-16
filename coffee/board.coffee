@@ -5,6 +5,26 @@ import {Button} from '../js/button.js'
 import {coords,global,toObjectNotation,toUCI} from '../js/globals.js'
 import {dumpState} from '../js/globals.js'
 
+iosCopyToClipboard = (el) =>
+	oldContentEditable = el.contentEditable
+	oldReadOnly = el.readOnly
+	xrange = document.createRange()
+
+	el.contentEditable = true
+	el.readOnly = false
+	xrange.selectNodeContents el
+
+	s = window.getSelection()
+	s.removeAllRanges()
+	s.addRange xrange
+
+	el.setSelectionRange 0, 999999 
+
+	el.contentEditable = oldContentEditable
+	el.readOnly = oldReadOnly
+
+	document.execCommand 'copy'
+
 export class Board
 	constructor: (@nr) ->
 		@squares = []
@@ -35,7 +55,9 @@ export class Board
 				if g.chess.move {from:uci.slice(0,2), to:uci.slice(2,4)}
 					input = document.getElementById "myInput"
 					input.value = g.chess.pgn()
-					navigator.clipboard.writeText g.chess.pgn()
+					iosCopyToClipboard input
+					#navigator.clipboard.writeText g.chess.pgn()
+
 					@clickedSquares = []
 				else
 					@clickedSquares.pop()
