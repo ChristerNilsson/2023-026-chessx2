@@ -33,9 +33,9 @@ export class Board
 				uci = toUCI @clickedSquares
 				# är detta ett korrekt drag? I så fall, utför det
 				if g.chess.move {from:uci.slice(0,2), to:uci.slice(2,4)}
-					# navigator.clipboard.writeText g.chess.pgn()
 					input = document.getElementById "myInput"
-					input.value = global.chess.pgn()
+					input.value = g.chess.pgn()
+					navigator.clipboard.writeText g.chess.pgn()
 					@clickedSquares = []
 				else
 					@clickedSquares.pop()
