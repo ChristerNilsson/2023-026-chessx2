@@ -16,11 +16,11 @@ window.preload = =>
 
 window.setup = =>
 
-	global.SIZE = innerHeight
-	global.SIZE = global.SIZE/18
+	global.SIZE = min innerWidth,innerHeight
+	global.SIZE = innerHeight/18
 	console.log global.SIZE
 
-	createCanvas 0.75*innerHeight,innerHeight
+	createCanvas innerWidth,innerHeight
 	textAlign CENTER,CENTER
 	rectMode CENTER
 	imageMode CENTER
