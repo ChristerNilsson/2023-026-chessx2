@@ -35,12 +35,15 @@ window.setup = =>
 
 	button = document.getElementById "myButton"
 	button.onclick = () =>
-		input = document.getElementById "myInput"
-		input.focus()
-		input.select()
-		input.setSelectionRange 0, 99999
-		navigator.clipboard.writeText input.value
-		console.log input.value
+		s = "Hula Jönsson"
+		navigator.clipboard.writeText s
+
+		# input = document.getElementById "myInput"
+		# input.focus()
+		# input.select()
+		# input.setSelectionRange 0, 99999
+		# navigator.clipboard.writeText input.value
+		# console.log input.value
 
 window.draw = =>
 	background 'gray'

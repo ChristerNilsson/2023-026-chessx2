@@ -97,7 +97,7 @@ export class Board
 				if g.chess.move {from:uci.slice(0,2), to:uci.slice(2,4)}
 					#input = document.getElementById "myInput"
 					#input.value = g.chess.pgn()
-					copyToClipboard g.chess.pgn()
+					#copyToClipboard g.chess.pgn()
 					#navigator.clipboard.writeText g.chess.pgn()
 
 					@clickedSquares = []
