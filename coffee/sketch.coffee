@@ -35,9 +35,8 @@ window.setup = =>
 
 	button = createButton 'copy'
 	button.position 0, 0
-	button.mousePressed () => 
+	button.mousePressed () =>
 		input = document.getElementById "myInput"
-		input.value = global.chess.pgn()
 		input.select()
 		input.setSelectionRange 0, 99999
 		navigator.clipboard.writeText input.value
