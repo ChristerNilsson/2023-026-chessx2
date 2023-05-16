@@ -20,14 +20,8 @@ window.setup = =>
 	createCanvas innerWidth,innerHeight
 
 	[global.size, global.setSize] = signal round min(innerWidth,innerHeight)/18
-	#global.size = size
-	#global.setSize = setSize
 	[global.mx, global.setMx] = signal round (innerWidth - 8 * global.size())/2
-	#global.mx = mx
-	#global.setMx = setMx
 	[global.my, global.setMy] = signal round (innerHeight - 17 * global.size())/2
-	#global.my = my
-	#global.setMy = setMy
 
 	resize()
 

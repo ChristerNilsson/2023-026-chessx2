@@ -33,7 +33,6 @@ export class Board
 				uci = toUCI @clickedSquares
 				# är detta ett korrekt drag? I så fall, utför det
 				if g.chess.move {from:uci.slice(0,2), to:uci.slice(2,4)}
-					# console.log g.chess.pgn()
 					navigator.clipboard.writeText g.chess.pgn()
 					@clickedSquares = []
 				else
@@ -63,7 +62,6 @@ export class Board
 					sq.draw piece, i*8+j==@clickedSquares[2]
 
 		stroke 'black'
-		console.log global.chess.history()
 		if @nr == global.chess.history().length%2 then fill 128,128,128,64 else noFill()
 		SIZE = global.size()
 		rect SIZE*4,SIZE*4,SIZE*8,SIZE*8

@@ -4,27 +4,14 @@ import _ from 'https://cdn.skypack.dev/lodash'
 
 export global = {
 
-	tree:null,
 	board0:null,
 	board1:null,
 	chess:null,
-	spacedRepetition : null,
-
-	#start : -1,
-	#stopp : -1,
-
-	#questions : [],
-	#qindex : -1,
-
-	#name : 'bishop',
-	name : 'tree',
-	#arr : [],
 
 	version:'ver: B',
-	#child : 0, # move under consideration
-	#children : [], # sorted list of [value,san,uci]
+	pics : {}, # 12 pjäser
+	buttons : [],
 
-	#SIZE : 32, # of square
 	size:null,
 	setSize:null,
 	mx:null,
@@ -32,13 +19,6 @@ export global = {
 	my:null,
 	setMy:null,
 
-	pics : {}, # 12 pjäser
-	# data:null,
-	buttons : [],
-	#database : {}, # fen => value
-	#currNode:null, # pekar in i ett träd
-	#count: 0, # räknar antal nya drag i trädet
-	#stack : [] # innehåller aktuell gren
 }
 
 export coords = (uci) =>
@@ -86,26 +66,3 @@ export dumpState = =>
 	console.log '  history',global.chess.history()
 
 link = => 'https://lichess.org/analysis/' + global.chess.fen()
-
-
-# export clickString = (key) =>
-# 	param.String key
-# 	#g = global
-# 	#if key == 'flip' then g.board.flip()
-# 	if key == 'link' then window.open link(), '_blank'
-# 	# else if key == 'up'   then g.child = (g.child-1) %% g.children.length
-# 	# else if key == 'down' then g.child = (g.child+1) %% g.children.length
-# 	else if key == 'undo' then undo()
-# 	else if key == 'left' then undo()
-# 	# else if key == 'right'
-# 		# console.log g.children,g.child
-# 		# [value,san,uci] = g.children[g.child]
-# 		# console.log 'move',[value,san,uci]
-# 		# g.chess.move san
-# 		# g.stack.push g.currNode
-# 		# g.currNode = g.currNode[uci]
-# 		# makeChildren()
-# 	else if key == 'save' then download g.tree, g.name + '.json'
-# 	# else if key == 'correct' then correctAnswer()
-# 	# else if key == 'wrong' then wrongAnswer()
-# 	else console.log 'unknown key in clickString',key
