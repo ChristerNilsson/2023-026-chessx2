@@ -17,6 +17,7 @@ export class Board
 
 	click : (i) =>
 		g = global
+		if @nr == g.chess.history().length %% 2 then return
 		col = i %% 8
 		row = 7 - i // 8
 		sq = g.chess.board()[row][col]
@@ -62,11 +63,11 @@ export class Board
 					sq.draw piece, i*8+j==@clickedSquares[2]
 
 		stroke 'black'
-		if @nr==0 then fill 128,128,128,64 else noFill()
+		console.log global.chess.history()
+		if @nr == global.chess.history().length%2 then fill 128,128,128,64 else noFill()
 		SIZE = global.size()
 		rect SIZE*4,SIZE*4,SIZE*8,SIZE*8
 		pop()
-		#@littera()
 
 	littera : =>
 		SIZE = global.size()
