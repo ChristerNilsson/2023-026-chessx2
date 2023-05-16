@@ -33,6 +33,10 @@ window.setup = =>
 	global.board1 = new Board 1
 	global.chess = new Chess()
 
+	button = createButton 'copy'
+	button.position 0, 0
+	button.mousePressed () => navigator.clipboard.writeText global.chess.pgn()
+
 window.draw = =>
 	background 'gray'
 	textSize global.size()
