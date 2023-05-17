@@ -140,7 +140,7 @@ class Button
 # 	execute : -> if @active then @event()
 
 export class MenuButton
-	constructor : (@x,@y) ->
+	constructor : (@x,@y,@onclick) ->
 		@d = (height+width)/200
 		@w = 4*@d
 		@h = 4*@d
@@ -151,4 +151,3 @@ export class MenuButton
 		rect @x,@y+0*@d,   @w, @d*0.8
 		rect @x,@y+1.5*@d, @w, @d*0.8
 	inside : (mx,my) -> @x-@w/2 < mx < @x+@w/2 and @y-@h/2 < my < @y+@h/2
-	onclick : -> if global.dialogues.length == 0 then menu0() # else dialogues.clear()

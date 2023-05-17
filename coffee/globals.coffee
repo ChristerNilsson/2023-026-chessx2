@@ -4,27 +4,25 @@ import _ from 'https://cdn.skypack.dev/lodash'
 
 export global = {
 
-	dialogues: [],
-	board0:null,
-	board1:null,
-	chess:null,
-	pgn : "",
+	dialogues: [], # dialogstack till menyhanteringen
+	board0 : null,
+	board1 : null,
+	chess : null, # hanterar dragen samt deras legalitet
 
 	minutes : 15,
-	increment : 10,
-	clocks: [15*60+10,15*60+10], # white,black seconds
+	increment : 10, # seconds
+	clocks: [15*60+10,15*60+10], # white and black in seconds. float.
 
 	paused : true,
-	player : 0, # 0=white, 1=black
 	version:'ver: B',
 	pics : {}, # 12 pjäser
 	buttons : [],
 
-	size:null,
-	setSize:null,
-	mx:null,
+	size:null, # en rutas storlek
+	setSize:null, 
+	mx:null, # x-marginal
 	setMx:null,
-	my:null,
+	my:null, # y-marginal
 	setMy:null,
 
 }

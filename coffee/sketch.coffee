@@ -59,32 +59,48 @@ resize = ->
 	global.setSize round innerHeight/18
 	resizeCanvas innerWidth, innerHeight
 	global.setMx round (innerWidth - 8 * global.size())/2
-	#console.log 'size',global.size()
 	global.setMy round (innerHeight - 17 * global.size())/2
+
 	global.buttons = []
-	global.buttons.push new MenuButton round(      global.mx()/2), round(0.80*height)
-	global.buttons.push new MenuButton round(width-global.mx()/2), round(0.20*height)
+	x0 = round global.mx()/2
+	x1 = width- x0
+	y0 = round 0.20*height
+	y1 = round 0.50*height
+	y2 = round 0.80*height
+
+	global.buttons.push new MenuButton x1, y0, =>
+		if global.paused and global.dialogues.length == 0 then menu0()
+
+	global.buttons.push new MenuButton x0, y2, =>
+		if global.paused and global.dialogues.length == 0 then menu0()
+
+	global.buttons.push new Button x0,y1,"⏰", =>
+		if global.buttons[2].text == "⏰"
+			global.paused = not global.paused
+	global.buttons.push new Button x1,y1,"⏰", => 
+		if global.buttons[3].text == "⏰"
+			global.paused = not global.paused
 
 window.mousePressed = =>
 	if not released then return
 	released = false
 
-	if global.dialogues.length == 0
-		#console.log 'mousePressed'
-		for button in global.buttons #.concat global.buttons
-			if button.inside mouseX,mouseY
-				button.onclick()
-				return false
-		for square in global.board0.squares.concat global.board1.squares
-			if square.inside mouseX,mouseY
-				#console.log 'square.inside',square.nr
-				square.onclick()
-				return false
-		false
-	else
+	if global.dialogues.length > 0
 		(_.last global.dialogues).execute mouseX,mouseY
-		false
+		return false
 
+	for button in global.buttons
+		if button.inside mouseX,mouseY
+			button.onclick()
+			return false
+
+	for square in global.board0.squares.concat global.board1.squares
+		if square.inside mouseX,mouseY
+			#console.log 'square.inside',square.nr
+			square.onclick()
+			return false
+	false
+	
 window.mouseReleased = =>
 	released = true
 	false

@@ -3,22 +3,21 @@ import {param,range} from '../js/utils.js'
 
 export class Button
 	constructor: (@x,@y,@text,@onclick) ->
-		param.Compact "NNSF",arguments
-		@w = 2.2 * global.size()
-		@h = 1 * global.size()
+		@w = 3 * global.size()
+		@h = 4 * global.size()
 		@bg = 'lightgray'
 		@fg = 'black'
 		@align = CENTER
 
 	draw : =>
 		noStroke()
-		fill @bg
-		rect @x,@y,@w,@h*0.65
+		#fill @bg
+		#rect @x,@y,@w,@h*0.65
 
 		if @align==LEFT then x=@x-0.45*@w else x=@x
-		fill @fg
+		#fill @fg
 		push()
-		textSize 0.4*global.size()
+		textSize 2*global.size() # 0.4
 		textAlign @align
 		noStroke()
 		text @text, x,@y+0.05*global.size()

@@ -34,13 +34,10 @@ export class Board
 
 				# är detta ett korrekt drag? I så fall, utför det
 				if g.chess.move {from:uci.slice(0,2), to:uci.slice(2,4)}
-					g.pgn = g.chess.pgn()
-					inp = document.getElementById 'inp'
-					inp.value = global.chess.pgn()
 					@clickedSquares = []
-					g.player = 1 - g.player
-					g.clocks[g.player] += g.increment
-
+					console.log g.chess
+					if g.chess.game_over() then g.paused = true
+					g.clocks[g.chess.history().length %% 2] += g.increment
 				else
 					@clickedSquares.pop()
 
@@ -68,32 +65,43 @@ export class Board
 					sq.draw piece, i*8+j==@clickedSquares[2]
 
 		stroke 'black'
-		if @nr == global.chess.history().length%2 then fill 128,128,128,64 else noFill()
+		if global.paused or @nr == global.chess.history().length%2 then fill 128,128,128,64 else noFill()
 		SIZE = global.size()
 		rect SIZE*4,SIZE*4,SIZE*8,SIZE*8
 		pop()
+		if global.clocks[0] <= 0 or global.clocks[1] <= 0 then global.paused = true
+
 		@drawClock 0
 		@drawClock 1
 
 	drawClock : (player) =>
+
+		p = global.chess.history().length %% 2
 		fill ["black","white"][player]
+		if global.clocks[player] < 60 then fill "red"
+		noStroke()
 		textSize global.size()
 		t = global.clocks[player]
-		if not global.paused and global.player!=player then t -= 1/120
+		if not global.paused and p!=player
+			t -= 1/120
 		global.clocks[player] = t
 		t = round t
-		secs = t %% 60
-		if secs < 10 then secs = "0" + secs
-		mins = t // 60
-		if mins < 10 then mins = "0" + mins
+		sekunder = t %% 60
+		t = t // 60
+		if sekunder < 10 then sekunder = "0" + sekunder
+		minuter = t %% 60
+		if minuter < 10 then minuter = "0" + minuter
+		timmar = t // 60
+		if timmar > 0 then res = timmar + "h" + minuter
+		else res = minuter + ":" + sekunder
 		if @nr==0
 			push()
 			translate width-global.mx()/2, global.size() * [2,5][player]
 			scale -1,-1
-			text "#{mins}:#{secs}", 0, 0
+			text res, 0, 0
 			pop()
 		if @nr==1
-			text "#{mins}:#{secs}", global.mx()/2, global.size() * [13,16][player]
+			text res, global.mx()/2, global.size() * [13,16][player]
 
 	littera : =>
 		SIZE = global.size()
