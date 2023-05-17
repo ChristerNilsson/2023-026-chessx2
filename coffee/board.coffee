@@ -104,7 +104,6 @@ export class Board
 					copyText = document.querySelector "#myInput"
 					copyText.value = g.chess.pgn()
 
-
 					@clickedSquares = []
 				else
 					@clickedSquares.pop()
