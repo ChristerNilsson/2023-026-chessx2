@@ -93,18 +93,10 @@ export class Board
 			else # kontrollera draget
 				@clickedSquares.push i
 				uci = toUCI @clickedSquares
+				
 				# är detta ett korrekt drag? I så fall, utför det
 				if g.chess.move {from:uci.slice(0,2), to:uci.slice(2,4)}
-					#input = document.getElementById "myInput"
-					#input.value = g.chess.pgn()
-					#copyToClipboard g.chess.pgn()
-					#navigator.clipboard.writeText g.chess.pgn()
-					#input = document.getElementById "myInput"
-
-					# copyText = document.querySelector "#myInput"
-					#g.pgn = g.chess.pgn()
-					g.pgn = new Date().toLocaleString()
-
+					g.pgn = g.chess.pgn()
 					@clickedSquares = []
 				else
 					@clickedSquares.pop()
