@@ -54,7 +54,8 @@ window.setup = =>
 
 	button = document.getElementById "myButton"
 	button.onclick = =>
-		sendMail new Date().toLocaleString(), global.pgn #chess.pgn()
+		#sendMail new Date().toLocaleString(), global.pgn #chess.pgn()
+		sendMail "adam","bertil"
 		#navigator.clipboard.writeText global.pgn
 
 window.draw = =>
