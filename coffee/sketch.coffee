@@ -15,18 +15,6 @@ window.preload = =>
 
 fullScreen = => enterFullscreen()
 
-# window.fetcher = =>
-# 	s = "yxan" #global.chess.pgn()
-# 	alert s
-# 	navigator.clipboard.writeText s
-
-# window.kopiera = =>
-# 	copyText = document.querySelector "#myInput"
-# 	copyText.select()
-# 	document.execCommand "copy"
-
-# document.querySelector("#copy").addEventListener("click", copy);	
-
 sendMail = (subject,body) ->
 	m = "janchrister.nilsson@gmail.com"
 	mail = document.getElementById "mail"
@@ -52,11 +40,11 @@ window.setup = =>
 	global.board1 = new Board 1
 	global.chess = new Chess()
 
-	button = document.getElementById "myButton"
-	button.onclick = =>
-		#sendMail new Date().toLocaleString(), global.pgn #chess.pgn()
-		sendMail "adam",global.pgn
-		#navigator.clipboard.writeText global.pgn
+	# button = document.getElementById "myButton"
+	# button.onclick = =>
+	# 	#sendMail new Date().toLocaleString(), global.pgn #chess.pgn()
+	# 	sendMail "adam",global.pgn
+	# 	#navigator.clipboard.writeText global.pgn
 
 window.draw = =>
 	background 'gray'
@@ -78,7 +66,7 @@ resize = ->
 	global.setMy round (innerHeight - 17 * global.size())/2
 	global.buttons = []
 	global.buttons.push new Button round(2*width/3),round(height/2), 'Full Screen', fullScreen
-	global.buttons.push new Button round(width/3),round(height/2), 'Copy', () => navigator.clipboard.writeText global.chess.pgn()
+	global.buttons.push new Button round(width/3),round(height/2), 'Copy', () => sendMail "Rubrik", global.chess.pgn()
 
 window.mousePressed = =>
 	console.log 'mousePressed'
