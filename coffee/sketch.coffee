@@ -47,9 +47,8 @@ window.setup = =>
 
 	button = document.getElementById "myButton"
 	button.onclick = =>
-		s = global.pgn
-		navigator.clipboard.writeText s
-		alert s
+		navigator.clipboard.writeText global.pgn
+		#alert s
 
 window.draw = =>
 	background 'gray'

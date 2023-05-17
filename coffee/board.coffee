@@ -102,7 +102,7 @@ export class Board
 					#input = document.getElementById "myInput"
 
 					# copyText = document.querySelector "#myInput"
-					g.pgn = g.chess.pgn()
+					g.pgn = JSON.stringify g.chess.pgn()
 
 					@clickedSquares = []
 				else
