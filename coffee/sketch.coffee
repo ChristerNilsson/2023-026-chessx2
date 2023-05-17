@@ -16,6 +16,10 @@ window.preload = =>
 fullScreen = => enterFullscreen()
 
 sendMail = (subject,body) ->
+	body += "\n\n"
+	if subject=="" 
+		d = new Date()
+		subject = d.toLocaleString 'sv-SE'
 	m = "janchrister.nilsson@gmail.com"
 	mail = document.getElementById "mail"
 	mail.href = "mailto:" + m + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body) # encodeURI 
@@ -40,12 +44,6 @@ window.setup = =>
 	global.board1 = new Board 1
 	global.chess = new Chess()
 
-	# button = document.getElementById "myButton"
-	# button.onclick = =>
-	# 	#sendMail new Date().toLocaleString(), global.pgn #chess.pgn()
-	# 	sendMail "adam",global.pgn
-	# 	#navigator.clipboard.writeText global.pgn
-
 window.draw = =>
 	background 'gray'
 	textSize global.size()
@@ -66,7 +64,7 @@ resize = ->
 	global.setMy round (innerHeight - 17 * global.size())/2
 	global.buttons = []
 	global.buttons.push new Button round(2*width/3),round(height/2), 'Full Screen', fullScreen
-	global.buttons.push new Button round(width/3),round(height/2), 'Mail', () => sendMail "Rubrik", global.chess.pgn()
+	global.buttons.push new Button round(width/3),round(height/2), 'Mail', () => sendMail "", global.chess.pgn()
 
 window.mousePressed = =>
 	console.log 'mousePressed'
