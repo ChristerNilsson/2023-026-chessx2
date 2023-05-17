@@ -15,15 +15,15 @@ window.preload = =>
 
 fullScreen = => enterFullscreen()
 
-window.fetcher = =>
-	s = "yxan" #global.chess.pgn()
-	alert s
-	navigator.clipboard.writeText s
+# window.fetcher = =>
+# 	s = "yxan" #global.chess.pgn()
+# 	alert s
+# 	navigator.clipboard.writeText s
 
-window.kopiera = =>
-	copyText = document.querySelector "#myInput"
-	copyText.select()
-	document.execCommand "copy"
+# window.kopiera = =>
+# 	copyText = document.querySelector "#myInput"
+# 	copyText.select()
+# 	document.execCommand "copy"
 
 # document.querySelector("#copy").addEventListener("click", copy);	
 
@@ -45,17 +45,11 @@ window.setup = =>
 	global.board1 = new Board 1
 	global.chess = new Chess()
 
-	# button = document.getElementById "myButton"
-	# button.onclick = () =>
-	# 	s = "Hula Jönsson"
-	# 	navigator.clipboard.writeText s
-
-		# input = document.getElementById "myInput"
-		# input.focus()
-		# input.select()
-		# input.setSelectionRange 0, 99999
-		# navigator.clipboard.writeText input.value
-		# console.log input.value
+	button = document.getElementById "myButton"
+	button.onclick = =>
+		s = global.pgn
+		navigator.clipboard.writeText s
+		alert s
 
 window.draw = =>
 	background 'gray'

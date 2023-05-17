@@ -101,8 +101,8 @@ export class Board
 					#navigator.clipboard.writeText g.chess.pgn()
 					#input = document.getElementById "myInput"
 
-					copyText = document.querySelector "#myInput"
-					copyText.value = g.chess.pgn()
+					# copyText = document.querySelector "#myInput"
+					g.pgn = g.chess.pgn()
 
 					@clickedSquares = []
 				else

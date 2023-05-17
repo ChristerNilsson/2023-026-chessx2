@@ -7,6 +7,7 @@ export global = {
 	board0:null,
 	board1:null,
 	chess:null,
+	pgn : "",
 
 	version:'ver: B',
 	pics : {}, # 12 pjäser

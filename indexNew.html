@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<button onclick="myFunction()">Copy text</button>
+
+<script>
+	function myFunction() {
+		var s = new Date().toLocaleTimeString()
+		navigator.clipboard.writeText(s)
+		alert("Copied the text: " + s)
+	}
+</script>
+
+</body>
+</html>
