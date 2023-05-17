@@ -66,7 +66,7 @@ resize = ->
 	global.setMy round (innerHeight - 17 * global.size())/2
 	global.buttons = []
 	global.buttons.push new Button round(2*width/3),round(height/2), 'Full Screen', fullScreen
-	global.buttons.push new Button round(width/3),round(height/2), 'Copy', () => sendMail "Rubrik", global.chess.pgn()
+	global.buttons.push new Button round(width/3),round(height/2), 'Mail', () => sendMail "Rubrik", global.chess.pgn()
 
 window.mousePressed = =>
 	console.log 'mousePressed'
