@@ -29,6 +29,7 @@ fullScreen = => enterFullscreen()
 
 sendMail = (subject,body) ->
 	m = "janchrister.nilsson@gmail.com"
+	mail = document.getElementById "mail"
 	mail.href = "mailto:" + m + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body) # encodeURI 
 	console.log mail.href
 	mail.click()
