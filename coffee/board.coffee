@@ -5,67 +5,67 @@ import {Button} from '../js/button.js'
 import {coords,global,toObjectNotation,toUCI} from '../js/globals.js'
 import {dumpState} from '../js/globals.js'
 
-copyToClipboard = (string) =>
-	textarea = null
-	result = null
+# copyToClipboard = (string) =>
+# 	textarea = null
+# 	result = null
 
-	try 
-		textarea = document.createElement('textarea');
-		textarea.setAttribute('readonly', true);
-		textarea.setAttribute('contenteditable', true);
-		textarea.style.position = 'fixed'; # prevent scroll from jumping to the bottom when focus is set.
-		textarea.value = string
+# 	try 
+# 		textarea = document.createElement('textarea');
+# 		textarea.setAttribute('readonly', true);
+# 		textarea.setAttribute('contenteditable', true);
+# 		textarea.style.position = 'fixed'; # prevent scroll from jumping to the bottom when focus is set.
+# 		textarea.value = string
 
-		document.body.appendChild textarea
+# 		document.body.appendChild textarea
 
-		textarea.focus()
-		textarea.select()
+# 		textarea.focus()
+# 		textarea.select()
 
-		xrange = document.createRange()
-		xrange.selectNodeContents(textarea)
+# 		xrange = document.createRange()
+# 		xrange.selectNodeContents(textarea)
 
-		sel = window.getSelection()
-		sel.removeAllRanges()
-		sel.addRange xrange
+# 		sel = window.getSelection()
+# 		sel.removeAllRanges()
+# 		sel.addRange xrange
 
-		textarea.setSelectionRange 0, textarea.value.length
-		result = document.execCommand 'copy'
-	catch err
-		alert err
-		result = null
-	finally
-		document.body.removeChild textarea
+# 		textarea.setSelectionRange 0, textarea.value.length
+# 		result = document.execCommand 'copy'
+# 	catch err
+# 		alert err
+# 		result = null
+# 	finally
+# 		document.body.removeChild textarea
 	
 
-	#manual copy fallback using prompt
-	if !result 
-		isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0
-		copyHotkey = isMac ? '⌘C' : 'CTRL+C';
-		result = prompt("Press #{copyHotkey}", string); # eslint-disable-line no-alert
-		if (!result) 
-			return false
-	return true
+# 	#manual copy fallback using prompt
+# 	if !result 
+# 		isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0
+# 		copyHotkey = isMac ? '⌘C' : 'CTRL+C';
+# 		result = prompt("Press #{copyHotkey}", string); # eslint-disable-line no-alert
+# 		if (!result) 
+# 			return false
+# 	return true
 
 
-iosCopyToClipboard = (el) =>
-	oldContentEditable = el.contentEditable
-	oldReadOnly = el.readOnly
-	xrange = document.createRange()
+# iosCopyToClipboard = (el) =>
+# 	oldContentEditable = el.contentEditable
+# 	oldReadOnly = el.readOnly
+# 	xrange = document.createRange()
 
-	el.contentEditable = true
-	el.readOnly = false
-	xrange.selectNodeContents el
+# 	el.contentEditable = true
+# 	el.readOnly = false
+# 	xrange.selectNodeContents el
 
-	s = window.getSelection()
-	s.removeAllRanges()
-	s.addRange xrange
+# 	s = window.getSelection()
+# 	s.removeAllRanges()
+# 	s.addRange xrange
 
-	el.setSelectionRange 0, 999999 
+# 	el.setSelectionRange 0, 999999 
 
-	el.contentEditable = oldContentEditable
-	el.readOnly = oldReadOnly
+# 	el.contentEditable = oldContentEditable
+# 	el.readOnly = oldReadOnly
 
-	document.execCommand 'copy'
+# 	document.execCommand 'copy'
 
 export class Board
 	constructor: (@nr) ->
