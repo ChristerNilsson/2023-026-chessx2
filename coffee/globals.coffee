@@ -4,11 +4,18 @@ import _ from 'https://cdn.skypack.dev/lodash'
 
 export global = {
 
+	dialogues: [],
 	board0:null,
 	board1:null,
 	chess:null,
 	pgn : "",
 
+	minutes : 15,
+	increment : 10,
+	clocks: [15*60+10,15*60+10], # white,black seconds
+
+	paused : true,
+	player : 0, # 0=white, 1=black
 	version:'ver: B',
 	pics : {}, # 12 pjäser
 	buttons : [],

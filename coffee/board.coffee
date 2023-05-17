@@ -35,7 +35,12 @@ export class Board
 				# är detta ett korrekt drag? I så fall, utför det
 				if g.chess.move {from:uci.slice(0,2), to:uci.slice(2,4)}
 					g.pgn = g.chess.pgn()
+					inp = document.getElementById 'inp'
+					inp.value = global.chess.pgn()
 					@clickedSquares = []
+					g.player = 1 - g.player
+					g.clocks[g.player] += g.increment
+
 				else
 					@clickedSquares.pop()
 
@@ -67,6 +72,28 @@ export class Board
 		SIZE = global.size()
 		rect SIZE*4,SIZE*4,SIZE*8,SIZE*8
 		pop()
+		@drawClock 0
+		@drawClock 1
+
+	drawClock : (player) =>
+		fill ["black","white"][player]
+		textSize global.size()
+		t = global.clocks[player]
+		if not global.paused and global.player!=player then t -= 1/120
+		global.clocks[player] = t
+		t = round t
+		secs = t %% 60
+		if secs < 10 then secs = "0" + secs
+		mins = t // 60
+		if mins < 10 then mins = "0" + mins
+		if @nr==0
+			push()
+			translate width-global.mx()/2, global.size() * [2,5][player]
+			scale -1,-1
+			text "#{mins}:#{secs}", 0, 0
+			pop()
+		if @nr==1
+			text "#{mins}:#{secs}", global.mx()/2, global.size() * [13,16][player]
 
 	littera : =>
 		SIZE = global.size()
