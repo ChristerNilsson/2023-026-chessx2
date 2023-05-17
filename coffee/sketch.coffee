@@ -27,6 +27,12 @@ fullScreen = => enterFullscreen()
 
 # document.querySelector("#copy").addEventListener("click", copy);	
 
+sendMail = (subject,body) ->
+	m = "janchrister.nilsson@gmail.com"
+	mail.href = "mailto:" + m + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body) # encodeURI 
+	console.log mail.href
+	mail.click()
+
 window.setup = =>
 
 	createCanvas innerWidth,innerHeight
@@ -47,7 +53,8 @@ window.setup = =>
 
 	button = document.getElementById "myButton"
 	button.onclick = =>
-		navigator.clipboard.writeText global.pgn
+		sendMail new Date().toLocaleString(), global.chess.pgn()
+		#navigator.clipboard.writeText global.pgn
 
 window.draw = =>
 	background 'gray'
