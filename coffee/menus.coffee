@@ -2,24 +2,13 @@ import {global} from '../js/globals.js'
 import {Dialogue} from '../js/dialogue.js'
 import {enterFullscreen} from '../js/utils.js'
 
-# sendMail = (subject,body) ->
-# 	body += "\n\n"
-# 	if subject == ""
-# 		d = new Date()
-# 		subject = d.toLocaleString 'sv-SE'
-# 	m = "janchrister.nilsson@gmail.com"
-# 	mail = document.getElementById "mail"
-# 	mail.href = "mailto:" + m + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body) # encodeURI 
-# 	console.log mail.href
-# 	mail.click()
-
 analyze = (url) =>
 	a = document.getElementById 'pgn'
-	a.hidden = false
+	#a.hidden = false
 	a.value = global.chess.pgn()
 	a.select()
 	document.execCommand 'copy'
-	a.hidden = true
+	# a.hidden = true
 	window.open url, "_blank"
 
 newGame = =>
@@ -46,6 +35,9 @@ export menu0 = -> # Main Menu
 		seconds = global.minutes*60 + global.increment
 		global.clocks = [seconds, seconds]
 		console.log 'newGame',global.minutes,global.increment
+		global.dialogues.clear()
+	global.dialogue.add 'Undo', ->
+		global.chess.undo()
 		global.dialogues.clear()
 
 	global.dialogue.clock ' ',true

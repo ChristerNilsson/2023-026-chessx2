@@ -59,12 +59,6 @@ export empty = (n) =>
 	param.Integer n
 	param.String (1+n//8).toString()
 
-undo = => 
-	# if global.stack.length == 0 then return
-	# global.chess.undo()
-	# global.currNode = global.stack.pop()
-	# # makeChildren()
-
 export dumpState = =>
 	console.log 'STATE ########'
 	# console.log '  stack',global.stack
