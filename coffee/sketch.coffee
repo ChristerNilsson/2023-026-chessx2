@@ -24,6 +24,10 @@ window.setup = =>
 
 	createCanvas innerWidth,innerHeight
 
+	#global.a = createInput 'hallo!'# global.chess.pgn()
+	# global.a.id = 'pgn'
+	#global.a.position width+100, 100
+
 	[global.size, global.setSize] = signal round min(innerWidth,innerHeight)/18
 	[global.mx, global.setMx] = signal round (innerWidth - 8 * global.size())/2
 	[global.my, global.setMy] = signal round (innerHeight - 17 * global.size())/2

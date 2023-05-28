@@ -3,12 +3,14 @@ import {Dialogue} from '../js/dialogue.js'
 import {enterFullscreen} from '../js/utils.js'
 
 analyze = (url) =>
+
 	a = document.getElementById 'pgn'
-	#a.hidden = false
+	a.hidden = false
 	a.value = global.chess.pgn()
+	a.focus()
 	a.select()
 	document.execCommand 'copy'
-	# a.hidden = true
+	a.hidden = true
 	window.open url, "_blank"
 
 newGame = =>
