@@ -38,14 +38,10 @@ export menu0 = -> # Main Menu
 	global.dialogue.add 'Full Screen', ->
 		enterFullscreen()
 		global.dialogues.clear()
-	# global.dialogue.add 'Flip', -> global.dialogues.clear()
 	global.dialogue.add 'Increment...', -> menu2()
-	global.dialogue.add 'Lichess', ->
+	global.dialogue.add 'Analyze', ->
 		analyze "https://lichess.org/paste"
 		global.dialogues.clear()
-	# global.dialogue.add 'chess.com', ->
-	# 	analyze "https://chess.com/analysis"
-	# 	global.dialogues.clear()
 	global.dialogue.add 'Minutes...', -> menu1()
 	global.dialogue.add 'New Game', ->
 		newGame()
