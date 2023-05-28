@@ -13,6 +13,15 @@ import {enterFullscreen} from '../js/utils.js'
 # 	console.log mail.href
 # 	mail.click()
 
+analyze = (url) =>
+	a = document.getElementById 'pgn'
+	a.hidden = false
+	a.value = global.chess.pgn()
+	a.select()
+	document.execCommand 'copy'
+	a.hidden = true
+	window.open url, "_blank"
+
 newGame = =>
 	global.chess.reset()
 	seconds = global.minutes*60 + global.increment
@@ -25,16 +34,12 @@ export menu0 = -> # Main Menu
 		global.dialogues.clear()
 	global.dialogue.add 'Flip', -> global.dialogues.clear()
 	global.dialogue.add 'Increment...', -> menu2()
-	global.dialogue.add 'Analyze', ->
-		a = document.getElementById 'pgn'
-		a.hidden = false
-		a.value = global.chess.pgn()
-		a.select()
-		document.execCommand 'copy'
-		a.hidden = true
-#		window.location.href = 'https://lichess.org/paste'
-		window.open "https://lichess.org/paste", "_blank"
-
+	global.dialogue.add 'Lichess', ->
+		analyze "https://lichess.org/paste"
+		global.dialogues.clear()
+	global.dialogue.add 'chess.com', ->
+		analyze "https://chess.com/analysis"
+		global.dialogues.clear()
 	global.dialogue.add 'Minutes...', -> menu1()
 	global.dialogue.add 'New Game', ->
 		newGame()
