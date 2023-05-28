@@ -2,16 +2,16 @@ import {global} from '../js/globals.js'
 import {Dialogue} from '../js/dialogue.js'
 import {enterFullscreen} from '../js/utils.js'
 
-sendMail = (subject,body) ->
-	body += "\n\n"
-	if subject == ""
-		d = new Date()
-		subject = d.toLocaleString 'sv-SE'
-	m = "janchrister.nilsson@gmail.com"
-	mail = document.getElementById "mail"
-	mail.href = "mailto:" + m + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body) # encodeURI 
-	console.log mail.href
-	mail.click()
+# sendMail = (subject,body) ->
+# 	body += "\n\n"
+# 	if subject == ""
+# 		d = new Date()
+# 		subject = d.toLocaleString 'sv-SE'
+# 	m = "janchrister.nilsson@gmail.com"
+# 	mail = document.getElementById "mail"
+# 	mail.href = "mailto:" + m + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body) # encodeURI 
+# 	console.log mail.href
+# 	mail.click()
 
 newGame = =>
 	global.chess.reset()
@@ -25,7 +25,16 @@ export menu0 = -> # Main Menu
 		global.dialogues.clear()
 	global.dialogue.add 'Flip', -> global.dialogues.clear()
 	global.dialogue.add 'Increment...', -> menu2()
-	global.dialogue.add 'Send PGN', -> sendMail "", global.chess.pgn()
+	global.dialogue.add 'Analyze', ->
+		a = document.getElementById 'pgn'
+		a.hidden = false
+		a.value = global.chess.pgn()
+		a.select()
+		document.execCommand 'copy'
+		a.hidden = true
+#		window.location.href = 'https://lichess.org/paste'
+		window.open "https://lichess.org/paste", "_blank"
+
 	global.dialogue.add 'Minutes...', -> menu1()
 	global.dialogue.add 'New Game', ->
 		newGame()
