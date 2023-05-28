@@ -1,17 +1,32 @@
 import {global} from '../js/globals.js'
 import {Dialogue} from '../js/dialogue.js'
 import {enterFullscreen} from '../js/utils.js'
+import {Button} from '../js/button.js'
 
 analyze = (url) =>
 
-	a = document.getElementById 'pgn'
-	a.hidden = false
-	a.value = global.chess.pgn()
-	a.focus()
-	a.select()
-	document.execCommand 'copy'
-	a.hidden = true
-	window.open url, "_blank"
+	# [Event "Exempelturnering"]
+	# [Site "Lichess"]
+	# [Date "2023.05.27"]
+	# [Round "1"]
+	# [White "Spelare1"]
+	# [Black "Spelare2"]
+	# [Result "1-0"]
+
+	date = new Date().toISOString().slice(0,10).replace(/-/g,'.')
+	console.log date
+	pgnString = '[Date "'+ date + '"]\n' + global.chess.pgn()
+	encodedPGN = encodeURIComponent pgnString
+
+	fetch 'https://lichess.org/api/import', {method: 'POST',headers: {'Content-Type': 'application/x-www-form-urlencoded'},body: "pgn=" + encodedPGN}
+		.then (response) ->
+			console.log "Statuskod: #{response.status}"
+			response.json()
+		.then (data) ->
+			console.log data
+			window.open data.url, "_blank"
+		.catch (error) ->
+			console.error error
 
 newGame = =>
 	global.chess.reset()
@@ -23,14 +38,14 @@ export menu0 = -> # Main Menu
 	global.dialogue.add 'Full Screen', ->
 		enterFullscreen()
 		global.dialogues.clear()
-	global.dialogue.add 'Flip', -> global.dialogues.clear()
+	# global.dialogue.add 'Flip', -> global.dialogues.clear()
 	global.dialogue.add 'Increment...', -> menu2()
 	global.dialogue.add 'Lichess', ->
 		analyze "https://lichess.org/paste"
 		global.dialogues.clear()
-	global.dialogue.add 'chess.com', ->
-		analyze "https://chess.com/analysis"
-		global.dialogues.clear()
+	# global.dialogue.add 'chess.com', ->
+	# 	analyze "https://chess.com/analysis"
+	# 	global.dialogues.clear()
 	global.dialogue.add 'Minutes...', -> menu1()
 	global.dialogue.add 'New Game', ->
 		newGame()
