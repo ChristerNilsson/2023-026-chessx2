@@ -2,8 +2,8 @@
 
 Avsikten med denna web app är att två personer ska kunna spela ett parti schack via en tablet, typ iPad eller Android.  
 Två bräden används:
-* Båda spelarna kan ser pjäserna rättvänt.
-* Inga oklarheter vem som flyttar pjäserna, eftersom man i så fall måste toucha motståndarens pjäser.
+* Båda spelarna ser pjäserna rättvänt.
+* Inga oklarheter vem som flyttar pjäserna, eftersom man endast vidrör sitt eget bräde.
 
 # Fördelar
 
