@@ -29,16 +29,18 @@ param.Compact = (types,args) =>
 
 export N = 8
 
+
 export enterFullscreen = =>
+	options = {navigationUI:"hide"}
 	element = document.documentElement # Get the root element (the <html> element)
 	if element.requestFullscreen
-		element.requestFullscreen() # Enter full-screen mode for modern browsers
+		element.requestFullscreen(options) # Enter full-screen mode for modern browsers
 	else if element.mozRequestFullScreen
-		element.mozRequestFullScreen() # Enter full-screen mode for Firefox
+		element.mozRequestFullScreen(options) # Enter full-screen mode for Firefox
 	else if element.webkitRequestFullscreen
-		element.webkitRequestFullscreen() # Enter full-screen mode for Chrome, Safari, and Opera
+		element.webkitRequestFullscreen(options) # Enter full-screen mode for Chrome, Safari, and Opera
 	else if element.msRequestFullscreen
-		element.msRequestFullscreen() # Enter full-screen mode for Internet Explorer and Edge
+		element.msRequestFullscreen(options) # Enter full-screen mode for Internet Explorer and Edge
 
 export hexToBase64 = (str) =>
 	btoa String.fromCharCode.apply(null,
