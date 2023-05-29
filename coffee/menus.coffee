@@ -64,13 +64,13 @@ setMinutes= (minutes) ->
 	global.clocks = [seconds,seconds]
 	global.dialogues.pop()
 
-export menu1 = -> # Minutes...
+export menu1 = -> # Minutes
 	global.dialogue = new Dialogue()
 	for n in [1,2,3,5,10,15,20,30,45,60,90]
 		do (n) -> global.dialogue.add n.toString(), ->
 			setMinutes n
 			menu2()
-	global.dialogue.clock()
+	global.dialogue.clock 'Min'
 	global.dialogue.textSize *= 0.5
 
 setIncrement = (increment) ->
@@ -79,11 +79,11 @@ setIncrement = (increment) ->
 	global.clocks = [seconds,seconds]
 	global.dialogues.pop()
 
-export menu2 = -> # Increment...
+export menu2 = -> # Seconds
 	global.dialogue = new Dialogue()
 	for n in [0,1,2,3,5,10,15,20,30,40,50]
 		do (n) -> global.dialogue.add n.toString(), ->
 			setIncrement n
 			global.dialogues.pop()
-	global.dialogue.clock()
+	global.dialogue.clock 'Sec'
 	global.dialogue.textSize *= 0.5
