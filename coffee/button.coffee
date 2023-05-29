@@ -31,7 +31,7 @@ export class Button
 export class ClockButton extends Button
 	constructor: (x,y,@nr,onclick) ->
 		super x,y,'',onclick
-		@w = 2.6 * global.size()
+		@w = 2.7 * global.size()
 		@h = 4 * global.size()
 		@state = -1 # paused
 
@@ -58,11 +58,11 @@ export class ClockButton extends Button
 		sekunder = t %% 60
 		t = t // 60
 		if sekunder < 10 then sekunder = "0" + sekunder
-		minuter = t %% 60
+		minuter = t # %% 60
 		if minuter < 10 then minuter = "0" + minuter
-		timmar = t // 60
-		if timmar > 0 then res = timmar + "h" + minuter
-		else res = minuter + ":" + sekunder
+		#timmar = t // 60
+		#if timmar > 0 then res = timmar + "h" + minuter
+		res = minuter + ":" + sekunder
 
 		@bg = ['black','white'][player]
 		@bg = 'gray' if p == player or global.paused
@@ -87,7 +87,8 @@ export class ClockButton extends Button
 		translate x,y
 		if @nr==1 then scale -1,-1
 		fill 'white'
+		noStroke()
 		textSize global.size()*0.5
-		text global.material, 0,0 #[-global.size(),global.size()][player]
+		text global.material, 0,0
 		pop()
 

@@ -1,40 +1,42 @@
 # Chess 2x
 
-Avsikten med denna web app är att två personer ska kunna spela ett parti schack via en tablet, typ iPad eller Android.  
-Två bräden används:
-* Båda spelarna ser pjäserna rättvänt.
-* Inga oklarheter vem som flyttar pjäserna, eftersom man endast vidrör sitt eget bräde.
+Two persons will be able to play over-the-board chess with this app.
 
-# Fördelar
+Two boards are used.
+* Both players will see the pieces correctly.
+* Each player will only touch his own board.
 
-* Bräde behövs ej
-* Pjäser behövs ej
-* Klocka behövs ej
-* Protokoll behövs ej
-* J'adoube behövs ej, pjäserna står alltid perfekt.
-* Inga tveksamheter om vem som är vid draget.
-* Pjäser trillar inte ner på golvet.
-* Upp-och-ner-vända torn behövs ej.
-* Man behöver aldrig ställa upp pjäserna.
-* Ersätter de flesta domarärenden, eftersom appen hanterar reglerna.
-* Partiet kan analyseras direkt på Lichess.
+# Advantages compared with analog chess
 
-# Meny
+* Board is not needed
+* Pieces are not needed
+* Chess clock not needed
+* Protocol not needed
+* J'adoube not needed
+* Obvious who is next
+* No pieces on the floor
+* Upside down rooks not needed
+* No waste of time setting up the pieces
+* No judge needed, as the app handles the rules
+* The game can be analyzed with Lichess with two clicks
+
+# Menu
 
 * Full Screen
-* New Game
-* Analyze
-* Minutes:     1 2 3 5 10 15 20 30 45 60 90
-* Increment: 0 1 2 3 5 10 15 20 30 40 50
+* Clock
+	* 1 2 3 5 10 15 20 30 45 60 90 minutes
+	* 0 1 2 3 5 10 15 20 30 40 50 seconds
 * Undo
+* Analyze
+* New Game
 
-# Analys på Lichess
+# Analyze with Lichess
 
-* När partiet är klart, välj **Analyze**
+* When the game is over, click **Analyze**
 
-# To DO
+# To Do
 
 * Pre-moves
 * Drag And Drop. Idag används tvåklicksdrag.
-* Tidshandikapp. Fördelar även inkrementet.
-* Straff. Typ en minut extra till den som EJ felat.
+* Handicap. Fördelar även inkrementet.
+* Punishment. Typ en minut extra till den som EJ felat.

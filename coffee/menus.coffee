@@ -41,7 +41,6 @@ export menu0 = -> # Main Menu
 	global.dialogue.add 'Full Screen', ->
 		enterFullscreen()
 		global.dialogues.clear()
-	global.dialogue.add 'Increment...', -> menu2()
 	global.dialogue.add 'Analyze', ->
 		analyze "https://lichess.org/paste"
 		global.dialogues.clear()
@@ -54,7 +53,7 @@ export menu0 = -> # Main Menu
 	global.dialogue.add 'Undo', ->
 		global.chess.undo()
 		global.dialogues.clear()
-	global.dialogue.add 'Minutes...', -> menu1()
+	global.dialogue.add 'Clock', -> menu1()
 
 	global.dialogue.clock ' ',true
 	global.dialogue.textSize *= 1.5
@@ -68,7 +67,9 @@ setMinutes= (minutes) ->
 export menu1 = -> # Minutes...
 	global.dialogue = new Dialogue()
 	for n in [1,2,3,5,10,15,20,30,45,60,90]
-		do (n) -> global.dialogue.add n.toString(), -> setMinutes n
+		do (n) -> global.dialogue.add n.toString(), ->
+			setMinutes n
+			menu2()
 	global.dialogue.clock()
 	global.dialogue.textSize *= 0.5
 
@@ -81,6 +82,8 @@ setIncrement = (increment) ->
 export menu2 = -> # Increment...
 	global.dialogue = new Dialogue()
 	for n in [0,1,2,3,5,10,15,20,30,40,50]
-		do (n) -> global.dialogue.add n.toString(), -> setIncrement n
+		do (n) -> global.dialogue.add n.toString(), ->
+			setIncrement n
+			global.dialogues.pop()
 	global.dialogue.clock()
 	global.dialogue.textSize *= 0.5
