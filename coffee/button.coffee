@@ -73,9 +73,13 @@ export class ClockButton extends Button
 		translate x, y
 		if @nr==1 then scale -1,-1
 		fill @bg
-		rect 0,0,@w,@h*0.2
+		rect 0,0,@w,@h*0.22
 		fill ['white','black'][player]
-		text res, 0,0.1*global.size()
+		console.log global.windows
+		if global.windows
+			text res, 0,0.1*global.size()
+		else
+			text res, 0,0.0*global.size()
 		pop()
 
 		push()

@@ -1,3 +1,7 @@
+# todo
+# vänd på meny för svart
+# formatera pgn
+
 import _ from 'https://cdn.skypack.dev/lodash'
 import {ass,log,range,enterFullscreen,signal} from '../js/utils.js'
 import {Board} from '../js/board.js'
@@ -15,6 +19,7 @@ window.preload = =>
 		global.pics[letter] = loadImage './images/b' + letter + '.png'
 	for letter in "RNBQKP"
 		global.pics[letter] = loadImage './images/w' + letter.toLowerCase() + '.png'
+	global.audio = new Audio 'shortclick.mp3'
 
 fullScreen = => enterFullscreen()
 
@@ -27,6 +32,9 @@ window.setup = =>
 	[global.size, global.setSize] = signal round min(innerWidth,innerHeight)/18
 	[global.mx, global.setMx] = signal round (innerWidth - 8 * global.size())/2
 	[global.my, global.setMy] = signal round (innerHeight - 17 * global.size())/2
+
+	console.log navigator.userAgent
+	global.windows = 0 <= navigator.userAgent.indexOf 'Windows'
 
 	resize()
 

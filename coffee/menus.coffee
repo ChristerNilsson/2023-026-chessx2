@@ -32,6 +32,9 @@ newGame = =>
 	global.chess.reset()
 	seconds = global.minutes*60 + global.increment
 	global.clocks = [seconds,seconds]
+	global.board0.clickedSquares = []
+	global.board1.clickedSquares = []
+	global.material = 0
 
 export menu0 = -> # Main Menu
 	global.dialogue = new Dialogue()

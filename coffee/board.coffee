@@ -54,6 +54,7 @@ export class Board
 				if g.chess.move {from:uci.slice(0,2), to:uci.slice(2,4), promotion:'q'}
 					@clickedSquares = []
 					console.log g.chess
+					global.audio.play()
 					g.paused = false
 					if g.chess.game_over() then g.paused = true
 					g.clocks[g.chess.history().length %% 2] += g.increment
