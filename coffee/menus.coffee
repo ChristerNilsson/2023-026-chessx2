@@ -42,7 +42,6 @@ export menu0 = -> # Main Menu
 	global.dialogue.add 'Analyze', ->
 		analyze "https://lichess.org/paste"
 		global.dialogues.clear()
-	global.dialogue.add 'Minutes...', -> menu1()
 	global.dialogue.add 'New Game', ->
 		newGame()
 		seconds = global.minutes*60 + global.increment
@@ -52,6 +51,7 @@ export menu0 = -> # Main Menu
 	global.dialogue.add 'Undo', ->
 		global.chess.undo()
 		global.dialogues.clear()
+	global.dialogue.add 'Minutes...', -> menu1()
 
 	global.dialogue.clock ' ',true
 	global.dialogue.textSize *= 1.5

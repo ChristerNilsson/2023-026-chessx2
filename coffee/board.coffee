@@ -1,7 +1,7 @@
 import _ from 'https://cdn.skypack.dev/lodash'
 import {ass,lerp,param,range,hexToBase64,enterFullscreen} from '../js/utils.js'
 import {Square} from '../js/square.js'
-import {Button} from '../js/button.js'
+import {Button,ClockButton} from '../js/button.js'
 import {coords,global,toObjectNotation,toUCI} from '../js/globals.js'
 import {dumpState} from '../js/globals.js'
 
@@ -14,6 +14,24 @@ export class Board
 			do (i) => @squares.push new Square @nr, i, => @click i
 
 		@buttons = []
+
+		x0 = round global.mx()/2
+		x1 = width- x0
+		y0 = round 0.20*height
+		y1 = round 0.50*height
+		y2 = round 0.80*height
+
+		@buttons.push new ClockButton x0,y1,@nr,=> global.paused = not global.paused
+		@buttons.push new ClockButton x1,y1,@nr,=> global.paused = not global.paused
+
+	calcMaterial : () ->
+		res = 0
+		hash = {'.':0,'k':0,'r':-5,'q':-9,'b':-3,'n':-3,'p':-1,'K':0,'R':5,'Q':9,'B':3,'N':3,'P':1, '1':0,'2':0,'3':0,'4':0,'5':0,'6':0,'7':0,'8':0,'9':0,'/':0}		
+		pieces = global.chess.fen().split(' ')[0]
+		console.log pieces
+		res += hash[piece] for piece in pieces
+		console.log res
+		return res
 
 	click : (i) =>
 		g = global
@@ -33,16 +51,17 @@ export class Board
 				uci = toUCI @clickedSquares
 
 				# är detta ett korrekt drag? I så fall, utför det
-				if g.chess.move {from:uci.slice(0,2), to:uci.slice(2,4)}
+				if g.chess.move {from:uci.slice(0,2), to:uci.slice(2,4), promotion:'q'}
 					@clickedSquares = []
 					console.log g.chess
+					g.paused = false
 					if g.chess.game_over() then g.paused = true
 					g.clocks[g.chess.history().length %% 2] += g.increment
+					global.material = @calcMaterial()
 				else
 					@clickedSquares.pop()
 
 	draw : =>
-
 		for button in @buttons
 			button.draw()
 
@@ -70,38 +89,6 @@ export class Board
 		rect SIZE*4,SIZE*4,SIZE*8,SIZE*8
 		pop()
 		if global.clocks[0] <= 0 or global.clocks[1] <= 0 then global.paused = true
-
-		@drawClock 0
-		@drawClock 1
-
-	drawClock : (player) =>
-
-		p = global.chess.history().length %% 2
-		fill ["black","white"][player]
-		if global.clocks[player] < 60 then fill "red"
-		noStroke()
-		textSize global.size()
-		t = global.clocks[player]
-		if not global.paused and p!=player
-			t -= 1/120
-		global.clocks[player] = t
-		t = round t
-		sekunder = t %% 60
-		t = t // 60
-		if sekunder < 10 then sekunder = "0" + sekunder
-		minuter = t %% 60
-		if minuter < 10 then minuter = "0" + minuter
-		timmar = t // 60
-		if timmar > 0 then res = timmar + "h" + minuter
-		else res = minuter + ":" + sekunder
-		if @nr==0
-			push()
-			translate width-global.mx()/2, global.size() * [2,5][player]
-			scale -1,-1
-			text res, 0, 0
-			pop()
-		if @nr==1
-			text res, global.mx()/2, global.size() * [13,16][player]
 
 	littera : =>
 		SIZE = global.size()

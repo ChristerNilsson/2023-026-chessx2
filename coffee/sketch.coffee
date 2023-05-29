@@ -1,7 +1,7 @@
 import _ from 'https://cdn.skypack.dev/lodash'
 import {ass,log,range,enterFullscreen,signal} from '../js/utils.js'
 import {Board} from '../js/board.js'
-import {Button} from '../js/button.js'
+import {Button,ClockButton} from '../js/button.js'
 import {global} from '../js/globals.js'
 import {menu0} from '../js/menus.js'
 import {MenuButton} from '../js/dialogue.js'
@@ -40,6 +40,7 @@ window.setup = =>
 	global.chess = new Chess()
 
 window.draw = =>
+	# console.log "draw"
 	background 'gray'
 	textSize global.size()
 	global.board0.draw()
@@ -74,13 +75,6 @@ resize = ->
 	global.buttons.push new MenuButton x0, y2, =>
 		if global.paused and global.dialogues.length == 0 then menu0()
 
-	global.buttons.push new Button x0,y1,"⏰", =>
-		if global.buttons[2].text == "⏰"
-			global.paused = not global.paused
-	global.buttons.push new Button x1,y1,"⏰", => 
-		if global.buttons[3].text == "⏰"
-			global.paused = not global.paused
-
 window.mousePressed = =>
 	if not released then return
 	released = false
@@ -99,6 +93,17 @@ window.mousePressed = =>
 			#console.log 'square.inside',square.nr
 			square.onclick()
 			return false
+
+	for button in global.board0.buttons
+		if button.inside mouseX,mouseY
+			button.onclick()
+			return false
+
+	for button in global.board1.buttons
+		if button.inside mouseX,mouseY
+			button.onclick()
+			return false
+
 	false
 	
 window.mouseReleased = =>
