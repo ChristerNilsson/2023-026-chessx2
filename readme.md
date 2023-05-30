@@ -1,6 +1,7 @@
 # Chess 2x
 
 Two persons will be able to play over-the-board chess with this app.
+(This is also possible using the Lichess app, but half of the pieces will be upside down. Over the board)
 
 Two boards are used.
 * Both players will see all pieces correctly
