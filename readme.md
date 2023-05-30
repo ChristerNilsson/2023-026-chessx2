@@ -3,8 +3,8 @@
 Two persons will be able to play over-the-board chess with this app.
 
 Two boards are used.
-* Both players will see the pieces correctly.
-* Each player will only touch his own board.
+* Both players will see all pieces correctly.
+* Each player may only touch his own board.
 
 # Advantages compared with analog chess
 
@@ -19,6 +19,11 @@ Two boards are used.
 * No waste of time setting up the pieces
 * No judge needed, as the app handles the rules
 * The game can be analyzed with Lichess with two clicks
+
+# Please Note
+
+* You must activate the clock before moving a piece.
+* You must deactivate the clock before using the menu.
 
 # Menu
 
