@@ -1,5 +1,7 @@
 # Chess 2x
 
+[Try it!](https://christernilsson.github.io/2023-026-chessx2/)
+
 Two persons will be able to play over-the-board chess with this app.
 
 Two boards are used.
@@ -46,7 +48,7 @@ Two boards are used.
 # Using Lichess Over the Board
 
 * Use the Lichess App
-* Half of the pieces will be upside down or the board will be switched
+* Half of the pieces will be upside down or the board will be turned
 * Main Menu | Over the board
 * Play
 * Send to the cloud
