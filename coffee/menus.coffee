@@ -66,6 +66,9 @@ export menu0 = -> # Main Menu
 		global.chess.undo()
 		global.dialogues.clear()
 	global.dialogue.add 'Clock', -> menu1()
+	global.dialogue.add 'Help', ->
+		window.open "https://github.com/ChristerNilsson/2023-026-chessx2#chess-2x", "_blank"
+		global.dialogues.clear()
 
 	global.dialogue.clock ' ',true
 	global.dialogue.textSize *= 1.5
