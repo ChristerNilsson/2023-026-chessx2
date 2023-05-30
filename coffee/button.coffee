@@ -11,11 +11,7 @@ export class Button
 
 	draw : =>
 		noStroke()
-		#fill @bg
-		#rect @x,@y,@w,@h*0.65
-
 		if @align==LEFT then x=@x-0.45*@w else x=@x
-		#fill @fg
 		push()
 		textSize 2*global.size() # 0.4
 		textAlign @align
@@ -23,17 +19,14 @@ export class Button
 		text @text, x,@y+0.05*global.size()
 		pop()
 
-	inside : (x,y) =>
-		param.Number x
-		param.Number y
-		param.Boolean @x-@w/2 < x < @x+@w/2 and @y-@h/2 < y < @y+@h/2
+	inside : (x,y) => @x-@w/2 < x < @x+@w/2 and @y-@h/2 < y < @y+@h/2
 
 export class ClockButton extends Button
 	constructor: (x,y,@nr,onclick) ->
 		super x,y,'',onclick
-		@w = 2.7 * global.size()
-		@h = 4 * global.size()
-		@state = -1 # paused
+		@W = 2.7
+		@H = 2.7 # Hela höjden
+		@resize()
 
 	draw : =>
 		noStroke()
@@ -54,15 +47,16 @@ export class ClockButton extends Button
 		if not global.paused and p!=player
 			t -= 1/240
 		global.clocks[player] = t
-		t = round t
-		sekunder = t %% 60
-		t = t // 60
-		if sekunder < 10 then sekunder = "0" + sekunder
-		minuter = t # %% 60
-		if minuter < 10 then minuter = "0" + minuter
-		#timmar = t // 60
-		#if timmar > 0 then res = timmar + "h" + minuter
-		res = minuter + ":" + sekunder
+		if t < 60
+			res = t.toFixed 1
+		else
+			t = round t
+			sekunder = t %% 60
+			t = t // 60
+			if sekunder < 10 then sekunder = "0" + sekunder
+			minuter = t
+			if minuter < 10 then minuter = "0" + minuter
+			res = minuter + ":" + sekunder
 
 		@bg = ['black','white'][player]
 		@bg = 'gray' if p == player or global.paused
@@ -73,13 +67,12 @@ export class ClockButton extends Button
 		translate x, y
 		if @nr==1 then scale -1,-1
 		fill @bg
-		rect 0,0,@w,@h*0.22
-		fill ['white','black'][player]
-		console.log global.windows
-		if global.windows
-			text res, 0,0.1*global.size()
-		else
-			text res, 0,0.0*global.size()
+		rect 0, 0, @W*global.size(), @H/3*global.size()
+		if global.clocks[player] < 60 then fill "red"
+		else fill ['white','black'][player]
+
+		faktor = if global.windows then 0.1 else 0.0
+		text res, 0, faktor * global.size()
 		pop()
 
 		push()
@@ -91,4 +84,9 @@ export class ClockButton extends Button
 		textSize global.size()*0.5
 		text global.material, 0,0
 		pop()
+
+	resize : =>
+		@w = @W * global.size()
+		@h = @H * global.size()
+
 

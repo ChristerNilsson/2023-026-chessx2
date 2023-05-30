@@ -36,6 +36,18 @@ newGame = =>
 	global.board1.clickedSquares = []
 	global.material = 0
 
+setMinutes= (minutes) ->
+	global.minutes = minutes
+	seconds = minutes*60 + global.increment
+	global.clocks = [seconds,seconds]
+	global.dialogues.pop()
+
+setIncrement = (increment) ->
+	global.increment = increment
+	seconds = global.minutes*60 + global.increment
+	global.clocks = [seconds,seconds]
+	global.dialogues.pop()
+
 export menu0 = -> # Main Menu
 	global.dialogue = new Dialogue()
 	global.dialogue.add 'Full Screen', ->
@@ -58,12 +70,6 @@ export menu0 = -> # Main Menu
 	global.dialogue.clock ' ',true
 	global.dialogue.textSize *= 1.5
 
-setMinutes= (minutes) ->
-	global.minutes = minutes
-	seconds = minutes*60 + global.increment
-	global.clocks = [seconds,seconds]
-	global.dialogues.pop()
-
 export menu1 = -> # Minutes
 	global.dialogue = new Dialogue()
 	for n in [1,2,3,5,10,15,20,30,45,60,90]
@@ -72,12 +78,6 @@ export menu1 = -> # Minutes
 			menu2()
 	global.dialogue.clock 'Min'
 	global.dialogue.textSize *= 0.5
-
-setIncrement = (increment) ->
-	global.increment = increment
-	seconds = global.minutes*60 + global.increment
-	global.clocks = [seconds,seconds]
-	global.dialogues.pop()
 
 export menu2 = -> # Seconds
 	global.dialogue = new Dialogue()

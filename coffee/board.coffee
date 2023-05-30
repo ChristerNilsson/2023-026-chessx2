@@ -35,6 +35,7 @@ export class Board
 
 	click : (i) =>
 		g = global
+		if g.paused then return
 		if @nr == g.chess.history().length %% 2 then return
 		col = i %% 8
 		row = 7 - i // 8
@@ -102,3 +103,7 @@ export class Board
 		for i in range 8
 			text letters[i],SIZE*(i+1),SIZE*8.8
 			text digits[i],SIZE*0.15,SIZE*(i+1)
+
+	resize: =>
+		for button in @buttons
+			button.resize()

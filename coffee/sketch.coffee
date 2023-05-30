@@ -36,8 +36,6 @@ window.setup = =>
 	console.log navigator.userAgent
 	global.windows = 0 <= navigator.userAgent.indexOf 'Windows'
 
-	resize()
-
 	textAlign CENTER,CENTER
 	rectMode CENTER
 	imageMode CENTER
@@ -46,6 +44,8 @@ window.setup = =>
 	global.board0 = new Board 0
 	global.board1 = new Board 1
 	global.chess = new Chess()
+
+	resize()
 
 window.draw = =>
 	# console.log "draw"
@@ -60,9 +60,6 @@ window.draw = =>
 	showDialogue()
 
 window.onresize = -> resize()
-
-# window.keyPressed = =>
-# 	if global.dialogues.length == 0 then menu0() # else dialogues.clear()
 
 resize = ->
 	global.setSize round innerHeight/18
@@ -82,6 +79,9 @@ resize = ->
 
 	global.buttons.push new MenuButton x0, y2, =>
 		if global.paused and global.dialogues.length == 0 then menu0()
+
+	global.board0.resize()
+	global.board1.resize()
 
 window.mousePressed = =>
 	if not released then return
