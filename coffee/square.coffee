@@ -9,11 +9,6 @@ export class Square
 		@ix = @i %% 8
 		@iy = 7 - @i//8
 
-		# ix = i %% 8
-		# iy = 7 - i // 8
-		# x = global.mx() + global.size() * ix
-		# y = global.my() + global.size() * iy + @nr * global.size() * 9
-
 		@w = global.size()
 		@h = global.size()
 		@col = 'white'

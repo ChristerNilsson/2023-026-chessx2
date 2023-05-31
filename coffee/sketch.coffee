@@ -48,7 +48,6 @@ window.setup = =>
 	resize()
 
 window.draw = =>
-	# console.log "draw"
 	background 'gray'
 	textSize global.size()
 	global.board0.draw()
@@ -98,7 +97,6 @@ window.mousePressed = =>
 
 	for square in global.board0.squares.concat global.board1.squares
 		if square.inside mouseX,mouseY
-			#console.log 'square.inside',square.nr
 			square.onclick()
 			return false
 

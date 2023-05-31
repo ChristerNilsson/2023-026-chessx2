@@ -48,23 +48,6 @@ export class Dialogue
 				else
 					@buttons[i].arr = []
 
-	# list : (@lst, @pageSize=10, @backPop=true, click = (arr) -> print arr[0]) ->
-	# 	@pageStart = 0
-	# 	n = @pageSize
-	# 	x = 0
-	# 	w = width
-	# 	h = height/(@pageSize+1)
-	# 	@buttons.clear()
-	# 	for i in range @pageStart,@pageStart + n
-	# 		if i < @lst.length
-	# 			item = @lst[i]
-	# 			y = i*h
-	# 			do (item) => @buttons.push new RectButton @, item, x,y,w,h, -> click @arr
-	# 	@buttons.push new RectButton @, ['Prev'], 0*w/3,h*n, w/3,h, -> @dlg.update -1 
-	# 	@buttons.push new RectButton @, ['Cancel'], 1*w/3,h*n, w/3,h, -> 
-	# 		if @dlg.backPop then dialogues.pop() else dialogues.clear()
-	# 	@buttons.push new RectButton @, ['Next'], 2*w/3,h*n, w/3,h, -> @dlg.update +1 
-
 	show : ->
 		push()
 		translate @x,@y
@@ -102,42 +85,7 @@ class Button
 
 	inside : (mx,my) ->  @r > dist mx, my, @dlg.x + @x, @dlg.y + @y 
 	execute : -> 
-		#console.log "Button #{@title} #{@active}"
 		if @active then @event()
-
-# class RectButton 
-# 	constructor : (@dlg, @arr, @x, @y, @w, @h, @event = -> print @item) -> @active = true 
-# 	info : (@arr,@event) -> @active = true
-# 	show : ->
-# 		col = '#ff0'
-
-# 		if @active then fill col else fill "#fff8"
-# 		stroke 0
-# 		rect @x,@y,@w,@h
-# 		push()
-# 		if @active then fill 0 else fill "#888"
-# 		noStroke()
-# 		textSize @dlg.textSize
-# 		if @arr.length == 1
-# 			textAlign CENTER,CENTER
-# 			text @arr[0], @x+@w/2,@y+@h/2			
-# 		if @arr.length == 2
-# 			textAlign LEFT,CENTER
-# 			text @arr[0], @x+10,@y+@h/2
-# 			textAlign RIGHT,CENTER
-# 			text @arr[1], @x+@w-10,@y+@h/2
-# 		if @arr.length == 3
-# 			textAlign LEFT,CENTER
-# 			text @arr[0], @x+10,@y+@h/2
-# 			textAlign CENTER,CENTER
-# 			text @arr[1], @x+@w/2,@y+@h/2			
-# 			textAlign RIGHT,CENTER
-# 			text @arr[2], @x+@w-10,@y+@h/2
-# 		else
-# 		pop()
-
-# 	inside : (mx,my) ->  @x < mx < @x+@w and @y < my < @y+@h
-# 	execute : -> if @active then @event()
 
 export class MenuButton
 	constructor : (@x,@y,@onclick) ->
